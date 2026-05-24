@@ -1,3 +1,5 @@
-FROM nginx:latest
+FROM nginx:alpine
+COPY build /usr/share/nginx/html
 
-COPY . /usr/share/nginx/html
+
+
