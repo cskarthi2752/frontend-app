@@ -22,9 +22,7 @@ jobs:
 
       - name: Login to ECR
         run: |
-          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com
-
-      - name: Build Docker image
+         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 274193347344.dkr.ecr.$AWS_REGION.amazonaws.com
         run: docker build -t frontend-app .
 
       - name: Tag image
