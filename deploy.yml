@@ -1,3 +1,4 @@
+
 name: Deploy to EKS
 
 on:
@@ -20,20 +21,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Login to ECR
+      - name: Login to Amazon ECR
         run: |
-        - name: Login to Amazon ECR
-  run: |
-    aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 274193347344.dkr.ecr.ap-south-1.amazonaws.com
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 274193347344.dkr.ecr.ap-south-1.amazonaws.com
+
+      - name: Build Docker image
         run: docker build -t frontend-app .
 
       - name: Tag image
-        run: docker tag frontend-app:latest <ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
+        run: docker tag frontend-app:latest 274193347344.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
 
       - name: Push image
-        run: docker push <ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
+        run: docker push 274193347344.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
 
       - name: Deploy to EKS
         run: |
-          aws eks update-kubeconfig --region ap-south-1 --name your-cluster-name
+          aws eks update-kubeconfig --region ap-south-1 --name your-my-eks-cluster
           kubectl apply -f k8s/
