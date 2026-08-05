@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -21,12 +20,6 @@ pipeline {
                 docker rm -f frontend-app || true
                 docker run -d --name frontend-app -p 80:80 frontend-app
                 '''
-            }
-        }
-
-        stage('Verify') {
-            steps {
-                sh 'docker ps'
             }
         }
     }
